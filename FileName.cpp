@@ -39,9 +39,17 @@ int main()
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     while (!glfwWindowShouldClose(window))
     {
+        // input
         processInput(window);
-        glfwSwapBuffers(window);
+
+        // rendering commands here
+
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+            // check and call events and swap the buffers
         glfwPollEvents();
+        glfwSwapBuffers(window);
     }
 
     glfwTerminate();
