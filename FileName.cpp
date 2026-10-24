@@ -12,14 +12,14 @@ void processInput(GLFWwindow* window)
 }
 
 float vertices[] = {
-    // first triangle
-        -0.9f, -0.5f, 0.0f,  // left 
-        -0.0f, -0.5f, 0.0f,  // right
-        -0.45f, 0.5f, 0.0f,  // top 
+    // first triangle        //color
+        -0.9f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,  // left 
+        -0.0f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,  // right
+        -0.45f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f ,   //// top 
         // second triangle
-         0.0f, -0.5f, 0.0f,  // left
-         0.9f, -0.5f, 0.0f,  // right
-         0.45f, 0.5f, 0.0f   // top 
+         0.0f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f ,// left
+         0.9f, -0.5f, 0.0f,  0.1f, 0.0f, 1.0f ,// right
+         0.45f, 0.5f, 0.0f,   0.0f, 0.1f, 1.0f // top 
 };
 unsigned int indices[] = {  // note that we start from 0!
     0, 1, 3,   // first triangle
@@ -34,17 +34,20 @@ unsigned int indices[] = {  // note that we start from 0!
 
 const char* vertexShaderSource = "#version 330 core\n"
 "layout (location = 0) in vec3 aPos;\n"
+"layout (location = 1) in vec3 aColor;\n"
+"out vec3 ourColor;\n"
 "void main()\n"
 "{\n"
 "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+"   ourColor = aColor;\n"   
 "}\0";
 
 const char* fragmentShaderSource = "#version 330 core\n"
 "out vec4 FragColor;\n"
-"uniform vec4 ourColor;\n"
+"in vec3 ourColor;\n"
 "void main()\n"
 "{\n"
-"    FragColor = ourColor;\n"
+"    FragColor = vec4(ourColor, 1.0);\n"
 "}\0";  
 
 int main()
@@ -130,8 +133,10 @@ int main()
     }
       
     // 3. then set our vertex attributes pointers
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     while (!glfwWindowShouldClose(window))
     {
@@ -142,11 +147,11 @@ int main()
         // rendering commands here
 
         glUseProgram(shaderProgram);
-		float timeValue = glfwGetTime();
+		/*float timeValue = glfwGetTime();
 		float redValue = (sin(timeValue) / 2.0f) + 0.5f;
-		int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
+		int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");*/
 
-		glUniform4f(vertexColorLocation, redValue, 0, 0, 1.0f);
+		/*glUniform4f(vertexColorLocation, redValue, 0, 0, 1.0f);*/
         
         glBindVertexArray(VAO);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
