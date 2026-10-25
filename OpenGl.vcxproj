@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LibraryPath>C:\Users\manik\source\repos\OpenGl\glfw-3.5.1.bin.WIN64\lib-vc2026;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Users\manik\source\repos\OpenGl\glfw-3.5.1.bin.WIN64\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\manik\source\repos\OpenGl\glfw-3.5.1.bin.WIN64\include;C:\Users\manik\source\repos\OpenGl\glm;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
